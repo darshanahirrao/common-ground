@@ -43,8 +43,12 @@
 - Deployed smoke checks passed: private configured Qloo, no-store/nosniff/CSP/
   referrer headers, invalid-group 422 and 17KB-body 413. These checks used no
   upstream Qloo requests. Local tests, lint, design checks and build passed again.
-- A Devpost draft with source/demo links, real screenshots and AI-assistance
-  disclosure exists. This is not proof of final submission.
+- Devpost submission completed after Darshan approved the displayed official
+  rules and terms: https://devpost.com/software/common-ground-y3gvrt . Official
+  Project submitted confirmation and Qloo association verified. Source/demo
+  links, real screenshots, thumbnail and AI-assistance disclosure are present.
+- Executable `9ee76fd` passed hosted CI37887756326 and Render auto-deployment.
+  A fresh public page opened in Qloo Live with two empty profiles.
 
 Live screenshots are outside this public repository under
 `../evidence/2026-10-09/common-ground-live-*.jpg`.
@@ -81,7 +85,6 @@ Screenshots are kept outside this public repository under
 
 - No conversational run in an external MCP agent host.
 - A post-idle cold start has not yet been verified.
-- No final competition project entry; registration and API request are complete.
 - Keyboard/screen-reader accessibility audit is not complete.
 - No paid work, prize, awarded amount or income demonstrated by this prototype.
 

@@ -11,7 +11,9 @@ is confirmed and the approved key arrived on 9 Oct. **Real search, shared movie
 planning, veto/replan and both MCP tools have now passed live validation.**
 The public working app is [common-ground-y3pk.onrender.com](https://common-ground-y3pk.onrender.com/).
 Real search, full-evidence planning and veto/replan passed on this hosted URL.
-The final competition entry is still pending. The app opens in Qloo Live with
+The [competition entry](https://devpost.com/software/common-ground-y3gvrt) was
+submitted on 9 October, with the official confirmation verified. This is not an
+award or payment. The app opens in Qloo Live with
 two empty participant profiles; no preferences are invented or queries run
 without a selection. Preview mode remains explicitly fictional, and Qloo Live
 never substitutes it. No paid LLM API, trade, wallet or subscription is needed.
@@ -114,8 +116,8 @@ paid plan was added. Render's free service sleeps while idle; a cold start can
 delay access by roughly a minute. A post-idle cold start still needs verification.
 
 Public desktop/mobile QA and deployed security smoke checks have passed.
-Before a final competition entry: verify the post-idle cold start and complete
-the entry form.
+The entry includes real product screenshots, working/source links and explicit
+AI-assistance disclosure. Post-idle wake verification remains a monitoring task.
 Keep the app operational through the official judging period, ending
 16 November 2026. Registration alone does not satisfy these requirements.
 

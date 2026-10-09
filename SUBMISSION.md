@@ -1,7 +1,10 @@
-# Common Ground: Submission Draft
+# Common Ground: Submitted Entry
 
-Not yet a final entry. The public app is running; complete final public QA and
-the competition form before describing this draft as submitted.
+Submitted on 9 October 2026, after approval of the displayed competition rules
+and Devpost terms. Official confirmation and Qloo association were verified.
+This is an entry, not a prize or income.
+
+Public entry: https://devpost.com/software/common-ground-y3gvrt
 
 Public working app: https://common-ground-y3pk.onrender.com/
 
@@ -67,6 +70,6 @@ entire catalog lacks a possible compromise. Future evaluation should measure
 whether groups prefer the weakest-first choice to an average-first choice;
 no such benefit is claimed without real user testing.
 
-Before final entry: finish post-idle cold-start verification, check the
-final form and preserve access through 16 November judging. The free host can
+Remaining: verify post-idle wake and preserve access through 16 November judging.
+The free host can
 take roughly a minute to wake after inactivity; no paid upgrade is planned.
