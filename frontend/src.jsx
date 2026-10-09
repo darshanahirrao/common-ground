@@ -25,6 +25,8 @@ const seeds = [
 ];
 const initialPeople = () =>
   ["Asha", "Leo", "Mina"].map((name, i) => ({ name, anchors: [seeds[i]] }));
+const initialLivePeople = () =>
+  ["Asha", "Leo"].map((name) => ({ name, anchors: [] }));
 
 function anchorContext(anchor) {
   const categories = {
@@ -94,8 +96,8 @@ function FilmArt({ candidate, source }) {
 }
 
 function App() {
-  const [source, setSource] = useState("synthetic");
-  const [people, setPeople] = useState(initialPeople);
+  const [source, setSource] = useState("qloo");
+  const [people, setPeople] = useState(initialLivePeople);
   const [vetoes, setVetoes] = useState([]);
   const [everyone, setEveryone] = useState(true);
   const [plan, setPlan] = useState(null);
@@ -461,7 +463,9 @@ function App() {
                   ? "Live Qloo"
                   : status?.qloo_configured
                     ? "Ready for live queries"
-                    : "Qloo key pending"}
+                    : status === null
+                      ? "Checking live access"
+                      : "Qloo key pending"}
             </span>
           </div>
           {source === "synthetic" && (

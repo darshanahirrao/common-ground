@@ -27,9 +27,24 @@
   The temporary viewport override was reset after QA.
 - Actual-call minute/hour budget, its expiry and rejection before network access
   are tested. Exact hosted hostname and rejection of wildcard exposure are tested.
-- Free Render blueprint/build/start scripts prepared. Hosting account terms and
-  private key storage permission are awaiting Darshan's action-time confirmation;
-  no account, paid service or hosted app was created by these file changes.
+- Darshan approved free Render hosting and private server-side key storage.
+  The first hosted build/deploy succeeded from `ddb026b` on the free plan.
+- Public app: https://common-ground-y3pk.onrender.com/ . Real search returned
+  typed/year-labelled anchors; two-person planning returned eight full-evidence
+  candidates. Vetoing the first pick changed it while retaining both people.
+- The live app opens with two empty participant profiles. No automatic Qloo
+  query or selected preference is introduced on page load. Fictional preview
+  remains separate and clearly labelled.
+- Public desktop at 1280px and mobile at 390px/320px: real film posters loaded,
+  per-person tables and long titles remained readable, and there was no horizontal
+  overflow. No captured public-app console warnings/errors. Viewport reset.
+- Public JSON export confirmed `source: qloo` and both participants represented.
+  The private key was absent from the export, HTML, status response and loaded JS.
+- Deployed smoke checks passed: private configured Qloo, no-store/nosniff/CSP/
+  referrer headers, invalid-group 422 and 17KB-body 413. These checks used no
+  upstream Qloo requests. Local tests, lint, design checks and build passed again.
+- A Devpost draft with source/demo links, real screenshots and AI-assistance
+  disclosure exists. This is not proof of final submission.
 
 Live screenshots are outside this public repository under
 `../evidence/2026-10-09/common-ground-live-*.jpg`.
@@ -65,7 +80,7 @@ Screenshots are kept outside this public repository under
 ## Not Yet Completed
 
 - No conversational run in an external MCP agent host.
-- No public hosted application or deployed abuse-control verification.
+- A post-idle cold start has not yet been verified.
 - No final competition project entry; registration and API request are complete.
 - Keyboard/screen-reader accessibility audit is not complete.
 - No paid work, prize, awarded amount or income demonstrated by this prototype.

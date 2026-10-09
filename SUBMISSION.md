@@ -1,7 +1,11 @@
 # Common Ground: Submission Draft
 
-Not a final entry. The functional public demo URL and deployed QA must be added
-before submission; do not submit a localhost URL or call hosting complete.
+Not yet a final entry. The public app is running; complete final public QA and
+the competition form before describing this draft as submitted.
+
+Public working app: https://common-ground-y3pk.onrender.com/
+
+Public MIT source: https://github.com/darshanahirrao/common-ground
 
 ## Tagline
 
@@ -47,8 +51,8 @@ Streaming availability, runtime and suitability are not independently verified.
 Real Qloo search, full-evidence two-person planning and veto/replan have passed.
 A divergent three-person scenario correctly reported no common evidence.
 A separate stdio MCP process passed both live tools and veto exclusion.
-59 automated tests pass, with local production-build desktop/mobile visual and
-functional QA. Synthetic preview films/artwork are distinctly labelled and
+59 automated tests pass, with hosted CI, public desktop/mobile QA and verified
+public search/planning/veto flows. Synthetic preview films/artwork are distinctly labelled and
 never used as proof of real Qloo behavior. Public source is MIT-licensed;
 the license does not relicense Qloo data or third-party film posters.
 
@@ -63,5 +67,6 @@ entire catalog lacks a possible compromise. Future evaluation should measure
 whether groups prefer the weakest-first choice to an average-first choice;
 no such benefit is claimed without real user testing.
 
-Before final entry: publish the free app, test the public URL and cold start,
-check the final form and preserve access through 16 November judging.
+Before final entry: finish post-idle cold-start verification, check the
+final form and preserve access through 16 November judging. The free host can
+take roughly a minute to wake after inactivity; no paid upgrade is planned.

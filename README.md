@@ -9,9 +9,12 @@ for the person who would otherwise be least represented, with hard vetoes.
 Development started on 8 Oct 2026 for the Qloo Agentic Hackathon. Registration
 is confirmed and the approved key arrived on 9 Oct. **Real search, shared movie
 planning, veto/replan and both MCP tools have now passed live validation.**
-External hosting and final submission are not complete. Preview mode still uses
-entirely fictional films, IDs, rankings and generated artwork; Qloo Live never
-substitutes that preview. No paid LLM API, trade, wallet or subscription is needed.
+The public working app is [common-ground-y3pk.onrender.com](https://common-ground-y3pk.onrender.com/).
+Real search, full-evidence planning and veto/replan passed on this hosted URL.
+The final competition entry is still pending. The app opens in Qloo Live with
+two empty participant profiles; no preferences are invented or queries run
+without a selection. Preview mode remains explicitly fictional, and Qloo Live
+never substitutes it. No paid LLM API, trade, wallet or subscription is needed.
 
 ## Run
 
@@ -88,7 +91,7 @@ Tests cover fair-vs-average ranking, vetoes, absent evidence, per-person failure
 bounded broadening, group validation, exact documented API requests, schema
 failures, secret-safe errors, no redirect/paid fallback, missing-key behavior,
 the HTTP workflow and official-SDK MCP discovery. Protocol fixtures are fictional.
-The dated local browser verification and remaining gates are in `QA.md`.
+The dated local and public browser verification and remaining gates are in `QA.md`.
 
 ## Security and Deployment Gate
 
@@ -103,14 +106,16 @@ Keep a single worker for the free demo. Custom hosts must be explicitly set in
 `ALLOWED_HOSTS`; Render's exact supplied hostname is accepted automatically,
 without allowing arbitrary `*.onrender.com` origins.
 
-`render.yaml` and the two `scripts/render-*.sh` files prepare a free single-worker
-deployment with locked dependencies and no HTTP access logs. Store the key only
-in the host's private server environment. Do not add a payment method, select
-a paid plan or enable paid overages. Render's free service can sleep while idle;
-its cold start and actual hosted behavior still need testing before submission.
+`render.yaml` and the two `scripts/render-*.sh` files define the deployed free
+single-worker service with locked dependencies and no HTTP access logs. The
+first hosted build and deploy succeeded from commit `ddb026b`. The approved key
+is stored only in the host's private server environment. No payment method or
+paid plan was added. Render's free service sleeps while idle; a cold start can
+delay access by roughly a minute. A post-idle cold start still needs verification.
 
-Before a final competition entry: finish authorized zero-cost hosting, run
-end-to-end desktop/mobile QA on its public URL and verify the entry form.
+Public desktop/mobile QA and deployed security smoke checks have passed.
+Before a final competition entry: verify the post-idle cold start and complete
+the entry form.
 Keep the app operational through the official judging period, ending
 16 November 2026. Registration alone does not satisfy these requirements.
 
