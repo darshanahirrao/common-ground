@@ -74,6 +74,22 @@ def test_host_validation_and_security_headers():
     assert response.headers["Referrer-Policy"] == "no-referrer"
 
 
+def test_hosted_hostname_is_exact_not_wildcard(monkeypatch):
+    monkeypatch.setenv("RENDER_EXTERNAL_HOSTNAME", "fictional-test.onrender.com")
+    client = TestClient(create_app(QlooClient("")))
+    assert (
+        client.get("/api/status", headers={"Host": "fictional-test.onrender.com"}).status_code
+        == 200
+    )
+    assert client.get("/api/status", headers={"Host": "attacker.onrender.com"}).status_code == 400
+
+
+def test_hosted_hostname_cannot_disable_host_validation(monkeypatch):
+    monkeypatch.setenv("RENDER_EXTERNAL_HOSTNAME", "*")
+    client = TestClient(create_app(QlooClient("")))
+    assert client.get("/api/status", headers={"Host": "attacker.invalid"}).status_code == 400
+
+
 async def test_mcp_tools_are_discoverable_with_official_sdk():
     async with Client(mcp) as client:
         tools = await client.list_tools()

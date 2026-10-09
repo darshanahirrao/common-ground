@@ -237,6 +237,17 @@ ul {
   flex: 1;
   overflow-wrap: anywhere;
 }
+.anchor-list small,
+.search-results small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 2px;
+}
+.search-results button > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
 .anchor-list svg {
   flex-shrink: 0;
 }

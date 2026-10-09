@@ -1,8 +1,12 @@
+import logging
+
 from mcp.server import MCPServer
 
 from .models import PlanRequest
 from .planner import plan_group
 from .qloo import QlooClient
+
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 mcp = MCPServer(
     "Common Ground",

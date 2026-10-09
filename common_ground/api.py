@@ -97,6 +97,9 @@ def create_app(qloo=None):
     hosts.extend(
         host.strip() for host in os.environ.get("ALLOWED_HOSTS", "").split(",") if host.strip()
     )
+    render_host = os.environ.get("RENDER_EXTERNAL_HOSTNAME", "").strip()
+    if render_host and "*" not in render_host and "/" not in render_host:
+        hosts.append(render_host)
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=hosts)
     return app
 

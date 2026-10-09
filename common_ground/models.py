@@ -9,6 +9,8 @@ class Anchor(BaseModel):
     entity_id: str = Field(min_length=1, max_length=80)
     name: str = Field(min_length=1, max_length=180)
     source: Literal["qloo", "synthetic"]
+    entity_type: str | None = Field(default=None, max_length=80)
+    release_year: int | None = Field(default=None, ge=1800, le=2200)
 
 
 class Member(BaseModel):
@@ -49,3 +51,5 @@ class Entity(BaseModel):
     name: str
     image_url: str | None = None
     preview_art: int | None = None
+    entity_type: str | None = None
+    release_year: int | None = None

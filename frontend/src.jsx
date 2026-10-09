@@ -26,6 +26,24 @@ const seeds = [
 const initialPeople = () =>
   ["Asha", "Leo", "Mina"].map((name, i) => ({ name, anchors: [seeds[i]] }));
 
+function anchorContext(anchor) {
+  const categories = {
+    "urn:entity:album": "Album",
+    "urn:entity:movie": "Film",
+    "urn:entity:artist": "Artist",
+    "urn:entity:book": "Book",
+    "urn:entity:brand": "Brand",
+    "urn:entity:destination": "Destination",
+    "urn:entity:person": "Person",
+    "urn:entity:place": "Place",
+    "urn:entity:podcast": "Podcast",
+    "urn:entity:tv_show": "TV show",
+    "urn:entity:track": "Track",
+    "urn:entity:videogame": "Video game",
+  };
+  return [categories[anchor.entity_type], anchor.release_year].filter(Boolean).join(" / ");
+}
+
 async function request(path, options) {
   const response = await fetch(path, {
     ...options,
@@ -292,7 +310,10 @@ function App() {
                   {person.anchors.map((anchor) => (
                     <li key={anchor.entity_id}>
                       <Film size={16} />
-                      <span>{anchor.name}</span>
+                      <span>
+                        {anchor.name}
+                        {anchorContext(anchor) && <small>{anchorContext(anchor)}</small>}
+                      </span>
                       <button
                         className="icon-button"
                         title={`Remove ${anchor.name}`}
@@ -392,7 +413,10 @@ function App() {
                         )}
                         onClick={() => chooseAnchor(anchor)}
                       >
-                        {anchor.name}
+                        <span>
+                          {anchor.name}
+                          {anchorContext(anchor) && <small>{anchorContext(anchor)}</small>}
+                        </span>
                         <Plus size={16} />
                       </button>
                     </li>
@@ -436,7 +460,7 @@ function App() {
                 : plan?.source === "qloo"
                   ? "Live Qloo"
                   : status?.qloo_configured
-                    ? "Qloo key configured, validation pending"
+                    ? "Ready for live queries"
                     : "Qloo key pending"}
             </span>
           </div>

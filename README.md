@@ -6,11 +6,12 @@ for the person who would otherwise be least represented, with hard vetoes.
 
 ## Current Status
 
-Development started on 8 Oct 2026 for the Qloo Agentic Hackathon. The free API
-key was requested and registration is confirmed. **Real-key validation, external hosting
-and final submission are not complete.** The preview uses entirely fictional
-films, IDs, rankings and generated artwork. It is not evidence of live Qloo usage.
-No LLM API, payment, trade, wallet or subscription is required to run the preview.
+Development started on 8 Oct 2026 for the Qloo Agentic Hackathon. Registration
+is confirmed and the approved key arrived on 9 Oct. **Real search, shared movie
+planning, veto/replan and both MCP tools have now passed live validation.**
+External hosting and final submission are not complete. Preview mode still uses
+entirely fictional films, IDs, rankings and generated artwork; Qloo Live never
+substitutes that preview. No paid LLM API, trade, wallet or subscription is needed.
 
 ## Run
 
@@ -43,7 +44,22 @@ The official MCP Python SDK exposes two tools over stdio:
   broadening retrieval by one page if shared evidence is absent.
 
 The same planner backs the browser and HTTP API at `/docs`. No paid LLM client
-is embedded. An MCP host can provide the conversational agent independently.
+is embedded. An MCP host can provide the conversational agent independently;
+this is an agentic tool, not a standalone LLM chatbot. Search includes entity
+type and film year where Qloo supplies them, so the host or person can distinguish
+identically named films, artists and albums before planning.
+
+Opt-in verification launches a separate real MCP server process over stdio:
+
+```bash
+uv run python scripts/check-live-mcp.py
+```
+
+Set `QLOO_API_KEY` privately first, or pass `--key-file /absolute/private/config.json`
+with an `apiKey` field. The check resolves two explicitly identified films for
+fictional participants, calls the planning tool and vetoes the first result.
+It prints only validation counts, not Qloo datasets or credentials. It is a
+real protocol/client check, not evidence of an external conversational host UI.
 
 ## Ranking and Honesty
 
@@ -78,18 +94,25 @@ The dated local browser verification and remaining gates are in `QA.md`.
 
 Keys stay server-side. Responses are not persisted or logged by this app;
 do not add real Qloo datasets or evidence exports to a public repository.
-The API applies a small process-local query cap, actual streamed-body size limit,
-host validation and security headers, and disables response caching.
-It does not implement a distributed/public-service abuse defense; before an
-external deployment, set the exact public hostname in `ALLOWED_HOSTS` and add
-proxy/distributed controls appropriate to that host. Do not deploy to a paid plan
-or enable paid overages.
+The API applies a small process-local request cap, an actual streamed-body size
+limit, host validation and security headers, and disables response caching.
+Actual Qloo calls are additionally capped at 60 per minute and 500 per hour
+per process, including failed calls. These limits are local controls, not the
+sponsor's published quota or a distributed defense; they reset on restart.
+Keep a single worker for the free demo. Custom hosts must be explicitly set in
+`ALLOWED_HOSTS`; Render's exact supplied hostname is accepted automatically,
+without allowing arbitrary `*.onrender.com` origins.
 
-Before a final competition entry: obtain the key, validate real search and
-recommendation schemas, inspect real metadata/images, exercise multi-person
-plans and errors, demonstrate MCP use in a real host, host the app at zero cost,
-and run end-to-end desktop/mobile QA on that public URL. Keep the demo operational
-through judging. Registration alone does not satisfy these requirements.
+`render.yaml` and the two `scripts/render-*.sh` files prepare a free single-worker
+deployment with locked dependencies and no HTTP access logs. Store the key only
+in the host's private server environment. Do not add a payment method, select
+a paid plan or enable paid overages. Render's free service can sleep while idle;
+its cold start and actual hosted behavior still need testing before submission.
+
+Before a final competition entry: finish authorized zero-cost hosting, run
+end-to-end desktop/mobile QA on its public URL and verify the entry form.
+Keep the app operational through the official judging period, ending
+16 November 2026. Registration alone does not satisfy these requirements.
 
 The hackathon key is restricted to hackathon purposes, not paid services. Qloo
 data is not licensed by this repository's MIT license. Preview artwork was made

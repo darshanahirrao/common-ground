@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: common-ground
+    runtime: python
+    plan: free
+    buildCommand: bash scripts/render-build.sh
+    startCommand: bash scripts/render-start.sh
+    healthCheckPath: /api/status
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.15
+      - key: NODE_VERSION
+        value: 22.16.0
+      - key: QLOO_API_KEY
+        sync: false

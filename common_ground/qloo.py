@@ -1,4 +1,6 @@
 import os
+import time
+from collections import deque
 from urllib.parse import urlsplit
 from uuid import UUID
 
@@ -13,10 +15,31 @@ class QlooError(Exception):
     """Sanitized service failure: never include raw bodies, request headers or keys."""
 
 
+class QueryBudget:
+    def __init__(self, minute_limit=60, hour_limit=500, clock=time.monotonic):
+        self.minute_limit = minute_limit
+        self.hour_limit = hour_limit
+        self.clock = clock
+        self.recent = deque()
+
+    def reserve(self):
+        now = self.clock()
+        while self.recent and self.recent[0] <= now - 3600:
+            self.recent.popleft()
+        minute_count = sum(timestamp > now - 60 for timestamp in self.recent)
+        if minute_count >= self.minute_limit or len(self.recent) >= self.hour_limit:
+            raise QlooError("Free-demo Qloo query budget reached. Wait before retrying.")
+        self.recent.append(now)
+
+
+_live_budget = QueryBudget()
+
+
 class QlooClient:
-    def __init__(self, key: str | None = None, transport=None):
+    def __init__(self, key: str | None = None, transport=None, budget=None):
         self._key = key if key is not None else os.environ.get("QLOO_API_KEY")
         self._transport = transport
+        self._budget = budget or (QueryBudget() if transport is not None else _live_budget)
 
     @property
     def configured(self):
@@ -25,6 +48,7 @@ class QlooClient:
     async def _get(self, path: str, params: dict):
         if not self.configured:
             raise QlooError("Qloo key pending. Live queries are unavailable; preview is fictional.")
+        self._budget.reserve()
         try:
             async with httpx.AsyncClient(
                 timeout=20,
@@ -48,7 +72,9 @@ class QlooClient:
             payload = response.json()
         except ValueError:
             raise QlooError("Qloo returned invalid JSON. Retry later.") from None
-        if not isinstance(payload, dict) or payload.get("success") is not True:
+        if not isinstance(payload, dict) or (
+            "success" in payload and payload["success"] is not True
+        ):
             raise QlooError("Qloo did not confirm a successful query.")
         return payload
 
@@ -76,7 +102,33 @@ class QlooClient:
             url = art.get("url") if isinstance(art, dict) else None
             if not isinstance(url, str) or urlsplit(url).scheme != "https":
                 url = None
-            result.append(Entity(entity_id=entity_id, name=name[:180], image_url=url))
+            types = row.get("types")
+            entity_type = (
+                next(
+                    (
+                        value
+                        for value in types
+                        if isinstance(value, str)
+                        and value.startswith("urn:entity:")
+                        and len(value) <= 80
+                    ),
+                    None,
+                )
+                if isinstance(types, list)
+                else None
+            )
+            year = props.get("release_year") if isinstance(props, dict) else None
+            if type(year) is not int or not 1800 <= year <= 2200:
+                year = None
+            result.append(
+                Entity(
+                    entity_id=entity_id,
+                    name=name[:180],
+                    image_url=url,
+                    entity_type=entity_type,
+                    release_year=year,
+                )
+            )
         return result
 
     async def search(self, query: str):
@@ -85,7 +137,13 @@ class QlooClient:
             raise ValueError("Search with 2 to 100 characters.")
         payload = await self._get("/search", {"query": query, "take": 8})
         return [
-            Anchor(entity_id=e.entity_id, name=e.name, source="qloo")
+            Anchor(
+                entity_id=e.entity_id,
+                name=e.name,
+                source="qloo",
+                entity_type=e.entity_type,
+                release_year=e.release_year,
+            )
             for e in self._entities(payload.get("results"))
         ]
 

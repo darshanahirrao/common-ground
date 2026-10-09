@@ -1,4 +1,40 @@
-# Verification: 8 October 2026
+# Verification
+
+## 9 October 2026: Real Integration
+
+- Official hackathon key received and kept privately outside source control.
+- Live `/search` returns a results list without a top-level `success` flag.
+  Corrected that assumption while still rejecting explicit failure flags,
+  invalid identities and invalid endpoint schemas. Added regression tests.
+- Live entity types and film release years validated and shown in search/anchors.
+- Two-person live planning returned eight full-evidence shared candidates.
+  Veto/replan returned a different pick, preserving both people and exclusions.
+- A deliberately divergent three-person scenario returned `no_common_ground`
+  after six bounded queries. No common film or satisfaction score was invented.
+- Separate MCP process over real stdio: discovery, two search-tool calls and
+  two planning-tool calls passed against live Qloo; veto excluded the old pick.
+  Reproducible opt-in check: `scripts/check-live-mcp.py`. This is protocol-client
+  verification, not a claimed external conversational-host session.
+- `uv run pytest -q`: 59 passed. Lint, design contrast and frontend build pass.
+- Native browser tested the real production build at
+  `http://127.0.0.1:8842/`: search/identity selection, full-evidence planning,
+  actual posters, veto/replan and real JSON export passed.
+- Export is marked `source: qloo`, preserves all people/exclusions and includes
+  no credential field. Raw exports stay outside public source control.
+- Visually inspected live results at 1280px desktop dark, 390px mobile dark
+  and 320px mobile light. All eight posters loaded, no horizontal overflow,
+  readable wrapped titles/rank tables and no captured console warnings/errors.
+  The temporary viewport override was reset after QA.
+- Actual-call minute/hour budget, its expiry and rejection before network access
+  are tested. Exact hosted hostname and rejection of wildcard exposure are tested.
+- Free Render blueprint/build/start scripts prepared. Hosting account terms and
+  private key storage permission are awaiting Darshan's action-time confirmation;
+  no account, paid service or hosted app was created by these file changes.
+
+Live screenshots are outside this public repository under
+`../evidence/2026-10-09/common-ground-live-*.jpg`.
+
+## 8 October 2026: Preview
 
 ## Completed Locally
 
@@ -28,7 +64,6 @@ Screenshots are kept outside this public repository under
 
 ## Not Yet Completed
 
-- No approved Qloo key, real API request or real-entity/image validation.
 - No conversational run in an external MCP agent host.
 - No public hosted application or deployed abuse-control verification.
 - No final competition project entry; registration and API request are complete.
